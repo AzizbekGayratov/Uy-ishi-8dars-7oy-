@@ -126,9 +126,7 @@ function App() {
   const handleClearAll = async () => {
     try {
       for (let post of posts) {
-        await fetch(`${API_URL}/posts/${post.id}`, {
-          method: "DELETE",
-        });
+        await api.delete(`/posts/${post.id}`);
         setPosts([]);
       }
 
@@ -140,7 +138,9 @@ function App() {
         },
       });
       navigate("/");
-    } catch (error) {}
+    } catch (error) {
+      console.error(error.message);
+    }
     setPosts([]);
     navigate("/");
   };
